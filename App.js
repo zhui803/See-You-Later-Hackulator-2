@@ -1,20 +1,37 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { StyleSheet } from 'react-native';
+import AppIntroSlider from 'react-native-app-intro-slider';
 
-export default function App() {
+
+const App = () => {
+  const { width, height } = Dimensions.get('window');
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <>
+      <StatusBar barStyle="dark-content" />
+      <SafeAreaView style={{ flex: 1 }}>
+        <ScrollView
+          style={{ flex: 1 }}
+          horizontal={true}
+          scrollEventThrottle={16}
+          pagingEnabled={true}
+        >
+          <View style={{ width, height }}>
+            <Text>Screen 1</Text>
+          </View>
+          <View style={{ width, height }}>
+            <Text>Screen 2</Text>
+          </View>
+          <View style={{ width, height }}>
+            <Text>Screen 3</Text>
+          </View>
+          <View style={{ width, height }}>
+            <Text>Screen 4</Text>
+          </View>
+          <View style={{ width, height }}>
+            <Text>Screen 5</Text>
+          </View>
+        </ScrollView>
+      </SafeAreaView>
+    </>
   );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+};
