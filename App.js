@@ -1,37 +1,20 @@
-import React from 'react';
-import { StyleSheet } from 'react-native';
-import AppIntroSlider from 'react-native-app-intro-slider';
-
-
-const App = () => {
-  const { width, height } = Dimensions.get('window');
+import { StatusBar } from "expo-status-bar";
+import { StyleSheet, Text, View } from "react-native";
+import { H1 } from "./components/styles/MyText";
+export default function App() {
   return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView style={{ flex: 1 }}>
-        <ScrollView
-          style={{ flex: 1 }}
-          horizontal={true}
-          scrollEventThrottle={16}
-          pagingEnabled={true}
-        >
-          <View style={{ width, height }}>
-            <Text>Screen 1</Text>
-          </View>
-          <View style={{ width, height }}>
-            <Text>Screen 2</Text>
-          </View>
-          <View style={{ width, height }}>
-            <Text>Screen 3</Text>
-          </View>
-          <View style={{ width, height }}>
-            <Text>Screen 4</Text>
-          </View>
-          <View style={{ width, height }}>
-            <Text>Screen 5</Text>
-          </View>
-        </ScrollView>
-      </SafeAreaView>
-    </>
+    <View style={styles.container}>
+      <H1 content="Open up App.js to start working on your app!"></H1>
+      <StatusBar style="auto" />
+    </View>
   );
-};
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});
