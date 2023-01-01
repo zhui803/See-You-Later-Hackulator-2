@@ -1,4 +1,4 @@
-export default TasksDemo = [
+export default TasksDemo = [//an array of tasks for demo only
     {
         id: 1,
         title: 'Go to the Gym',
