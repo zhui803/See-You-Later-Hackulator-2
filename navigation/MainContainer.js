@@ -42,15 +42,14 @@ function MainContainer() {
             //   iconName = focused ? 'ios-location' : 'ios-location-outline';
             // }
           
-            return <Ionicons name={iconName} size={size} color={color} />;
+            return <Ionicons name={iconName} size={size} color={'white'} />;
           },
         })}
         tabBarOptions={{
-          // backgroundColor = "#5D2AA8",
-          activeTintColor: '#5D2AA8', 
+          activeTintColor: 'white', 
           inactiveTintColor: 'grey',
           labelStyle: { paddingBottom: 20, fontSize: 20 },
-          style: { color: '#5D2AA8', padding: 20, height: 70},
+          style: { padding: 30, height: 70, backgroundColor: "#5D2AA8"},
         }}>
 
         <Tab.Screen name={homeName} component={HomeScreen} />

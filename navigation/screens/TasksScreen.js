@@ -82,6 +82,7 @@ const styles = StyleSheet.create({
   },
   items: {
     marginTop: 30,
+    fontSize: 100,
   },
   writeTaskWrapper: {
     position: 'absolute',
