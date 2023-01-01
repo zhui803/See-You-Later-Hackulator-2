@@ -23,7 +23,7 @@ import {
 
 
 export default function App() {
-  
+  const [task, setTask] = useState();
   const [taskItems, setTaskItems] = useState([]);
 
 
@@ -247,7 +247,7 @@ export default function App() {
                   <DateTimePicker 
                      testID="dateTimePicker"
                      value={date}
-                     mode={mode}
+                     mode=s{mode}
                      is24Hour={true}
                      display="default"
                      onChange={changeSelectedDate}
