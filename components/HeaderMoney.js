@@ -14,7 +14,7 @@ export default function HeaderMoney() {
 
 const styles = StyleSheet.create({
   header: {
-    height: "50%",
+    height: "80%",
     padding: "5%",
     justifyContent: "center",
     backgroundColor: "white",

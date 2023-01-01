@@ -14,6 +14,11 @@ export const dataSlice = createSlice({
     addReward: (state, action) => {
       state.rewards.push(action.payload);
     },
+    removeReward: (state, action) => {
+      state.rewards = state.rewards.filter(
+        (reward) => reward.id !== action.payload
+      );
+    },
     updateValidity: (state) => {
       state.rewards = state.rewards.map((reward) => ({
         ...reward,
@@ -28,6 +33,12 @@ export const dataSlice = createSlice({
     },
   },
 });
-export const { addTask, addReward, updateValidity, addMoney, useMoney } =
-  dataSlice.actions;
+export const {
+  addTask,
+  addReward,
+  removeReward,
+  updateValidity,
+  addMoney,
+  useMoney,
+} = dataSlice.actions;
 export default dataSlice.reducer;

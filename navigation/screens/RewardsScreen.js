@@ -16,6 +16,7 @@ import {
   useMoney,
   addReward,
   updateValidity,
+  removeReward,
 } from "../../components/redux/slices/mainData";
 import {
   incrementRewardsID,
@@ -73,6 +74,9 @@ export default function RewardsScreen({ navigation }) {
     dispatch(useMoney(parseInt(cost)));
     Vibration.vibrate(10);
   };
+  const rReward = (id) => {
+    dispatch(removeReward(id));
+  };
   return (
     <ScrollView
       style={styles.wrapper}
@@ -85,7 +89,13 @@ export default function RewardsScreen({ navigation }) {
         </View>
       </View>
       <View>
-        <Button title="Press me" onPress={handleButtonPress} />
+        <View style={{ alignItems: "flex-start" }}>
+          <Button
+            title="+ New Reward"
+            color="#5D2AA8"
+            onPress={handleButtonPress}
+          />
+        </View>
         {showInputs && (
           <View>
             <H5 content="Enter Reward:" />
@@ -101,7 +111,14 @@ export default function RewardsScreen({ navigation }) {
               value={number}
               keyboardType="numeric"
             />
-            <Button title="Submit" onPress={handleSubmit} />
+            <View style={{ alignItems: "flex-start" }}>
+              <Button
+                title="+ Create Reward"
+                onPress={handleSubmit}
+                color="#5D2AA8"
+                style={{ backgroundColor: "#5D2AA8" }}
+              />
+            </View>
           </View>
         )}
         <View style={{ alignItems: "center" }}>
@@ -125,6 +142,14 @@ export default function RewardsScreen({ navigation }) {
                   </View>
                 </Pressable>
               </View>
+              <Pressable
+                style={{ position: "absolute", left: 10, top: 10 }}
+                onPress={() => rReward(reward.id)}
+              >
+                <View>
+                  <BodyText content="Delete" />
+                </View>
+              </Pressable>
             </View>
           ))}
         </View>

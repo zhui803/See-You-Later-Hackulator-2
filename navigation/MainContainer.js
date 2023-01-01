@@ -3,7 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import SectionList from "react-native/Libraries/Lists/SectionList";
-
+import { View } from "react-native";
 // Screens
 import HomeScreen from "./screens/HomeScreen";
 import TasksScreen from "./screens/TasksScreen";
@@ -42,13 +42,18 @@ function MainContainer() {
 
             return <Ionicons name={iconName} size={size} color={"white"} />;
           },
-          headerTitle: () => <HeaderMoney />,
+          headerTitle: () => (
+            <View style={{ alignItems: "center", height: "100%" }}>
+              <HeaderMoney />
+            </View>
+          ),
+          headerStyle: { backgroundColor: "#5D2AA8" },
 
           // tabBarOptions:{
-            tabBarActiveTintColor: 'white', 
-            tabBarInactiveTintColor: 'grey',
-            tabBarLabelStyle: { paddingBottom: 20, fontSize: 20 },
-            tabBarStyle: {padding: 30, height: 70, backgroundColor: '#5D2AA8'},
+          tabBarActiveTintColor: "white",
+          tabBarInactiveTintColor: "grey",
+          tabBarLabelStyle: { paddingBottom: 20, fontSize: 20 },
+          tabBarStyle: { padding: 30, height: 70, backgroundColor: "#5D2AA8" },
           // },
         })}
       >
