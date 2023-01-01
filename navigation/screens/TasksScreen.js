@@ -247,7 +247,7 @@ export default function App() {
                   <DateTimePicker 
                      testID="dateTimePicker"
                      value={date}
-                     mode=s{mode}
+                     mode={mode}
                      is24Hour={true}
                      display="default"
                      onChange={changeSelectedDate}
