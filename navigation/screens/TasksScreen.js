@@ -1,6 +1,6 @@
 import * as React from "react";
 import {useState, useEffect} from 'react';
-import { KeyboardAvoidingView, Alert, Modal, Pressable, StyleSheet, Button, Text, View, TextInput, TouchableOpacity, Keyboard, ScrollView } from 'react-native';
+import { SafeAreaView, KeyboardAvoidingView, Platform, Alert, Modal, Pressable, StyleSheet, Button, Text, View, TextInput, TouchableOpacity, Keyboard, ScrollView } from 'react-native';
 import Task from './Task';
 
 //import DropDownPicker from 'react-native-dropdown-picker';
@@ -9,6 +9,7 @@ import Counter from '../../components/Counter';
 import DropDownPicker from 'react-native-dropdown-select-list';
 
 import DateTimePicker from '@react-native-community/datetimepicker';
+import DateTimePicker2 from '@react-native-community/datetimepicker'; 
 
 import {
   H1,
@@ -49,13 +50,17 @@ export default function App() {
   const [categories, setCategories] = useState("");
   const [catID, setCatID] = useState([]);
 
-  const [date, setDate] = useState(new Date(1598051730000));
+  const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
 
+  const [timeDate, setTimeDate] = useState(new Date());
+  const [timeMode, setTimeMode] = useState('time');
+  const [timeShow, settimeShow] = useState(false);
+
+  const [resultTime, setResultTime] = useState(new Date());
+  const [resultDay, setResultDay] = useState(new Date());
   
-
-
   const categoryData = [
     {key: '1', value: 'Fitness'},
     {key: '2', value: 'Health'},
@@ -158,10 +163,7 @@ export default function App() {
   };
 
   const showMode = (currentMode) => {
-    if (Platform.OS === 'android') {
-      setShow(false);
-      // for iOS, add a button that closes the picker
-    }
+    setShow(true);
     setMode(currentMode);
   };
 
@@ -172,6 +174,13 @@ export default function App() {
   const showTimepicker = () => {
     showMode('time');
   };
+
+  const changeSelectedDate = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setDate(currentDate);
+ };
+
+
 
   return (
     <View style={styles.container}>
@@ -229,27 +238,36 @@ export default function App() {
             <Text style={styles.modalTitle}>Choose a Category:</Text>
 
             <Text content = "How often should this task repeat and when?"></Text>
+            {/* The date picker */}  
+            
             <View>
-            <Button onPress={showDatepicker} title="Show date picker!" />
-            <Button onPress={showTimepicker} title="Show time picker!" />
-            <Text>selected: {date.toLocaleString()}</Text>
-            {show && (
-              <DateTimePicker
-                testID="dateTimePicker"
-                value={date}
-                mode={mode}
-                is24Hour={true}
-                onChange={onChange}
-                dateFprmat = "dayofweek day month"
-              />
-              
+         <Button onPress={showDatepicker} title="Show date picker!" />
+            </View>
+               {show && (
+                  <DateTimePicker 
+                     testID="dateTimePicker"
+                     value={date}
+                     mode={mode}
+                     is24Hour={true}
+                     display="default"
+                     onChange={changeSelectedDate}
+            />
             )}
-
-
-
-
-
-          </View>
+            
+            {/* The time picker */}      
+            
+         <View>
+            <Button onPress={showTimepicker} title="Your Time Picker" />
+         </View>
+         {timeShow && (
+            <DateTimePicker2
+                  value={timeDate}
+                  mode={timeMode}
+                  is24Hour={true}
+                  display="default"
+                  onChange={changeSelectedDate} />
+         )}
+      
             
             <TouchableOpacity
               style={styles.addModalWrapper}
