@@ -22,10 +22,11 @@ import {
 } from "../../components/styles/MyText";
 export default function RewardsScreen({ navigation }) {
   const [money, setMoney] = React.useState(1000);
+  const [rewards, setRewards] = React.useState([]);
+  //Helper Data
   const [showInputs, setShowInputs] = React.useState(false);
   const [text, setText] = React.useState("");
   const [number, setNumber] = React.useState("");
-  const [rewards, setRewards] = React.useState([]);
   const [rewardsID, setRewardsID] = React.useState(0);
   const handleButtonPress = () => {
     setShowInputs(!showInputs);
