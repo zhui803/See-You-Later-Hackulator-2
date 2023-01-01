@@ -12,16 +12,16 @@ export const rewardsHelperSlice = createSlice({
     toggleShowInputs: (state) => {
       state.showInputs = !state.showInputs;
     },
-    setText: (state, action) => {
+    updateText: (state, action) => {
       state.text = action.payload;
     },
-    resetText: (state) => {
+    resetText: (state, action) => {
       state.text = "";
     },
-    setNumber: (state, action) => {
+    updateNumber: (state, action) => {
       state.number = action.payload;
     },
-    resetNumber: (state) => {
+    resetNumber: (state, action) => {
       state.number = "";
     },
     incrementRewardsID: (state) => {
@@ -31,9 +31,9 @@ export const rewardsHelperSlice = createSlice({
 });
 export const {
   toggleShowInputs,
-  setText,
+  updateText,
   resetText,
-  setNumber,
+  updateNumber,
   resetNumber,
   incrementRewardsID,
 } = rewardsHelperSlice.actions;

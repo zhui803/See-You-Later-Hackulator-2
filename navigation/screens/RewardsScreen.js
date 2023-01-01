@@ -11,6 +11,19 @@ import {
   Pressable,
   Vibration,
 } from "react-native";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  useMoney,
+  addReward,
+  updateValidity,
+} from "../../components/redux/slices/mainData";
+import {
+  incrementRewardsID,
+  resetText,
+  toggleShowInputs,
+  updateNumber,
+  updateText,
+} from "../../components/redux/slices/rewardsHelper";
 import {
   H1,
   H2,
@@ -21,23 +34,18 @@ import {
   SmallText,
 } from "../../components/styles/MyText";
 export default function RewardsScreen({ navigation }) {
-  const [money, setMoney] = React.useState(1000);
-  const [rewards, setRewards] = React.useState([]);
+  const { money, rewards } = useSelector((state) => state.mainData);
   //Helper Data
-  const [showInputs, setShowInputs] = React.useState(false);
-  const [text, setText] = React.useState("");
-  const [number, setNumber] = React.useState("");
-  const [rewardsID, setRewardsID] = React.useState(0);
+  const { showInputs, text, number, rewardsID } = useSelector(
+    (state) => state.rewardsHelper
+  );
+  const dispatch = useDispatch();
+
   const handleButtonPress = () => {
-    setShowInputs(!showInputs);
+    dispatch(toggleShowInputs());
   };
   React.useEffect(() => {
-    setRewards((prevRewards) =>
-      prevRewards.map((reward) => ({
-        ...reward,
-        valid: money >= parseInt(reward.cost),
-      }))
-    );
+    dispatch(updateValidity());
   }, [money]);
   const handleSubmit = () => {
     if (text != "" && number != "") {
@@ -48,15 +56,21 @@ export default function RewardsScreen({ navigation }) {
         cost: number,
         valid: valid,
       };
-      setRewardsID(parseInt(rewardsID) + 1);
-      setRewards([...rewards, reward]);
+      dispatch(incrementRewardsID());
+      dispatch(addReward(reward));
     }
-    setNumber("");
-    setText("");
-  };
 
+    dispatchNumber("");
+    dispatchText("");
+  };
+  const dispatchText = (text) => {
+    dispatch(updateText(text));
+  };
+  const dispatchNumber = (number) => {
+    dispatch(updateNumber(number));
+  };
   const useReward = (cost) => {
-    setMoney(money - parseInt(cost));
+    dispatch(useMoney(parseInt(cost)));
     Vibration.vibrate(10);
   };
   return (
@@ -77,13 +91,13 @@ export default function RewardsScreen({ navigation }) {
             <H5 content="Enter Reward:" />
             <TextInput
               style={[styles.inputText, styles.marginBottom]}
-              onChangeText={(text) => setText(text)}
+              onChangeText={(text) => dispatchText(text)}
               value={text}
             />
             <H5 content="How much will it cost?" />
             <TextInput
               style={[styles.inputNumber, styles.marginBottom]}
-              onChangeText={(number) => setNumber(number)}
+              onChangeText={(number) => dispatchNumber(number)}
               value={number}
               keyboardType="numeric"
             />

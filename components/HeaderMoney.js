@@ -1,10 +1,10 @@
 import { StatusBar } from "expo-status-bar";
-import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { StyleSheet, Text, View, SafeAreaView } from "react-native";
 import { BodyText } from "./styles/MyText";
 
 export default function HeaderMoney() {
-  const [money, setMoney] = useState(0);
+  const { money } = useSelector((state) => state.mainData);
   return (
     <View style={styles.header}>
       <BodyText content={money} />
