@@ -17,7 +17,7 @@ const rewardsName = "Rewards";
 const mapName = "Map";
 
 const Tab = createBottomTabNavigator();
-const Stack = createNativeStackNavigator();
+
 function tabs() {
   return;
 }
