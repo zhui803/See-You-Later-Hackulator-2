@@ -21,7 +21,7 @@ import {
   SmallText,
 } from "../../components/styles/MyText";
 export default function RewardsScreen({ navigation }) {
-  const [money, setMoney] = React.useState(0);
+  const [money, setMoney] = React.useState(1000);
   const [showInputs, setShowInputs] = React.useState(false);
   const [text, setText] = React.useState("");
   const [number, setNumber] = React.useState("");
@@ -30,13 +30,28 @@ export default function RewardsScreen({ navigation }) {
   const handleButtonPress = () => {
     setShowInputs(!showInputs);
   };
-
+  React.useEffect(() => {
+    setRewards((prevRewards) =>
+      prevRewards.map((reward) => ({
+        ...reward,
+        valid: money >= parseInt(reward.cost),
+      }))
+    );
+  }, [money]);
   const handleSubmit = () => {
-    const reward = { id: rewardsID, description: text, cost: number };
-    setRewardsID(parseInt(rewardsID) + 1);
+    if (text != "" && number != "") {
+      const valid = money >= parseInt(number);
+      const reward = {
+        id: rewardsID,
+        description: text,
+        cost: number,
+        valid: valid,
+      };
+      setRewardsID(parseInt(rewardsID) + 1);
+      setRewards([...rewards, reward]);
+    }
     setNumber("");
     setText("");
-    setRewards([...rewards, reward]);
   };
 
   const useReward = (cost) => {
@@ -50,7 +65,7 @@ export default function RewardsScreen({ navigation }) {
     >
       <View style={styles.flexRow}>
         <H1 content="Rewards" />
-        <View style={{ backgroundColor: "red" }}>
+        <View>
           <H1 content={money} />
         </View>
       </View>
@@ -80,8 +95,17 @@ export default function RewardsScreen({ navigation }) {
               <H4 style={{ maxWidth: "60%" }} content={reward.description} />
               <View style={{ alignItems: "center" }}>
                 <BodyText content="Cost:" />
-                <Pressable onPress={() => useReward(reward.cost)}>
-                  <View style={styles.costButton}>
+                <Pressable
+                  onPress={() => useReward(reward.cost)}
+                  disabled={!reward.valid}
+                >
+                  <View
+                    style={
+                      reward.valid
+                        ? styles.costButton
+                        : styles.costButtonInvalid
+                    }
+                  >
                     <BodyText content={reward.cost} />
                   </View>
                 </Pressable>
@@ -137,6 +161,16 @@ const styles = StyleSheet.create({
   },
   costButton: {
     backgroundColor: "yellow",
+    borderColor: "black",
+    borderWidth: 1,
+    borderRadius: 10,
+    width: 80,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  costButtonInvalid: {
+    backgroundColor: "#D9D9D9",
     borderColor: "black",
     borderWidth: 1,
     borderRadius: 10,
