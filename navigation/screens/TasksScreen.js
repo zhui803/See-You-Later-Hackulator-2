@@ -105,9 +105,7 @@ export default function App() {
   const handleAddTask = () => {
     Keyboard.dismiss();
     setModalVisible(!modalVisible)
-    setTaskItems([...taskItems, taskName])
-    setTaskItems(null);
-    
+    setTaskItems([...taskItems, taskName + " (" + categoriesName + " , "  +"$"+ rewardValue + ") " + date + timeDate])
   }
 
   const handleAddCategory = () => {
@@ -297,7 +295,7 @@ export default function App() {
             
             <TouchableOpacity
               style={styles.addModalWrapper}
-              onPress={() => {handleSubmit()}}
+              onPress={() => {handleAddTask()}}
             >
               <Text align = 'center' style={styles.addModalText}> + Add New Task</Text>
             </TouchableOpacity>
