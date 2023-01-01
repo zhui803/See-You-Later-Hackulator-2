@@ -3,26 +3,8 @@ import {useState, useEffect} from 'react';
 import { KeyboardAvoidingView, Alert, Modal, Pressable, StyleSheet, Button, Text, View, TextInput, TouchableOpacity, Keyboard, ScrollView } from 'react-native';
 import Task from './Task';
 
-//import DropDownPicker from 'react-native-dropdown-picker';
-import Counter from '../../components/Counter';
-
-import DropDownPicker from 'react-native-dropdown-select-list';
-
-import DateTimePicker from '@react-native-community/datetimepicker';
-
-import {
-  H1,
-  H2,
-  H3,
-  H4,
-  H5,
-  BodyText,
-  SmallText,
-} from "../../components/styles/MyText";
-
-
 export default function App() {
-  
+  const [task, setTask] = useState();
   const [taskItems, setTaskItems] = useState([]);
 
 
@@ -150,28 +132,6 @@ export default function App() {
     itemsCopy.splice(index, 1);
     setTaskItems(itemsCopy)
   }
-
-  const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate;
-    setShow(false);
-    setDate(currentDate);
-  };
-
-  const showMode = (currentMode) => {
-    if (Platform.OS === 'android') {
-      setShow(false);
-      // for iOS, add a button that closes the picker
-    }
-    setMode(currentMode);
-  };
-
-  const showDatepicker = () => {
-    showMode('date');
-  };
-
-  const showTimepicker = () => {
-    showMode('time');
-  };
 
   return (
     <View style={styles.container}>

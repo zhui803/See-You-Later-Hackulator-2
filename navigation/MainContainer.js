@@ -45,10 +45,10 @@ function MainContainer() {
           headerTitle: () => <HeaderMoney />,
 
           // tabBarOptions:{
-          tabBarActiveTintColor: "white",
-          tabBarInactiveTintColor: "grey",
-          tabBarLabelStyle: { paddingBottom: 20, fontSize: 20 },
-          tabBarStyle: { padding: 30, height: 70, backgroundColor: "#5D2AA8" },
+            tabBarActiveTintColor: 'white', 
+            tabBarInactiveTintColor: 'grey',
+            tabBarLabelStyle: { paddingBottom: 20, fontSize: 20 },
+            tabBarStyle: {padding: 30, height: 70, backgroundColor: '#5D2AA8'},
           // },
         })}
       >
