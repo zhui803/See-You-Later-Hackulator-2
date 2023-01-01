@@ -37,20 +37,17 @@ function MainContainer() {
             } else if (rn === rewardsName) {
               iconName = focused ? 'trophy' : 'trophy-outline';
             }
-
-            // else if(rn === mapName){
-            //   iconName = focused ? 'ios-location' : 'ios-location-outline';
-            // }
           
             return <Ionicons name={iconName} size={size} color={'white'} />;
           },
-        })}
-        tabBarOptions={{
-          activeTintColor: 'white', 
-          inactiveTintColor: 'grey',
-          labelStyle: { paddingBottom: 20, fontSize: 20 },
-          style: { padding: 30, height: 70, backgroundColor: "#5D2AA8"},
-        }}>
+
+          // tabBarOptions:{
+            tabBarActiveTintColor: 'white', 
+            tabBarInactiveTintColor: 'grey',
+            tabBarLabelStyle: { paddingBottom: 20, fontSize: 20 },
+            tabBarStyle: {padding: 30, height: 70, backgroundColor: '#5D2AA8'},
+          // },
+        })}>
 
         <Tab.Screen name={homeName} component={HomeScreen} />
         <Tab.Screen name={tasksName} component={TasksScreen} />
