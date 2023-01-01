@@ -11,9 +11,12 @@ import {
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {Dropdown} from 'react-native-material-dropdown';
 
-import Counter from './components/Counter';
+import Counter from './Counter';
+import DateTime from './DateTime';
 
 const AddTasks = () => {
+    const [eventDate, setEventDate] = useState("");
+    const [eventTitle, setEventTitle] = useState('Default event');
     const [task, setTask] = useState("");
     const [categoryOpen, setCatOpen] = useState(false);
     const [value, setValue] = useState(null);
@@ -24,10 +27,7 @@ const AddTasks = () => {
         {label: 'Work', value: 'work'},
         {label: 'Housework', value: 'housework', parent: 'work'},
         {label: 'Job', value: 'job', parent: 'work'},
-        
-      ]);
-
-    
+      ]); 
       
     {/* Make sure for the category to make it so user can type in it and also have it drop down to pre-made ones or make a new one if not there */}
     return (
@@ -51,6 +51,11 @@ const AddTasks = () => {
         
         <H2 content="Choose a category"></H2>
         <DropDownPicker
+            searchTextInputProps={{
+              maxLength: 50
+            }}
+            addCustomItem={true}
+            searchPlaceholder="Search..."
             open={open}
             value={value}
             items={items}
@@ -58,17 +63,37 @@ const AddTasks = () => {
             setValue={setValue}
             setItems={setItems}
             categorySelectable={true}
+            searchable={true}          
         />
 
-        <H2 content = "Task Frequency"></H2>
-        <BodyText content = "How often should this task repeat?"></BodyText>
+        
         {/* Code for the date and time picker goes here, looking into the code behind it */}
-
-
+        <View style={styles.container}>
+        <H2 content = "Time and Frequency"></H2>
+        <H5 content = "How often should this task repeat and when?"></H5>
+          <View style={styles.inputView}>
+            <BodyText>Enter here</BodyText>
+            <TextInput
+              style={styles.Info_Input}
+              value={eventTitle}
+              onChangeText={text => setEventTitle(text)}
+            />
+            <BodyText>
+              {moment
+                .utc(TIME_NOW_IN_UTC)
+                .local()
+                .format('lll')}
+            </BodyText>
+          </View>
+          <TouchableOpacity style={styles.button}>
+            <BodyText color = '#FFFFFF' content = 'Add this event to calendar'/>
+          </TouchableOpacity>
+          {/*We want to also have the saved time and day onto the tasks screen*/}
+        </View>
 
         <H2 content = "Choose Reward"></H2>
         <BodyText content = "How many coins will you get?"></BodyText>
-        <Counter />
+        <Counter /> {/* We need to make a state variable or somehow have the counter value be displayed in tasks */}
 
       {/* This is the code block for the Create Task button */}
       <TouchableOpacity style={styles.createTaskButton}>
@@ -114,15 +139,22 @@ const styles = StyleSheet.create({
     createTaskButtonText: {
         fontFamily: 'Helvetica',
         color: '#FFFFFF'
+    },
+    button: {
+      alignItems: 'center',
+      backgroundColor: '#014421',
+      padding: 10,
+      marginTop: 10,
+      borderRadius: 10
     }
 
   });
 
-  export default function AddTasks({ navigation }) {
+  export default function App({ navigation }) {
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
             <Text
-                onPress={() => navigation.navigate('Home')}
+                onPress={() => navigation.navigate('AddTask')}
                 style={{ fontSize: 26, fontWeight: 'bold' }}>Tasks Page</Text>
         </View>
     );
