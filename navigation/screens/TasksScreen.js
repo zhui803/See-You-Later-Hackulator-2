@@ -215,7 +215,7 @@ const DateTime = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#E8EAED',
+    backgroundColor: '#grey',
   },
   tasksWrapper: {
     paddingTop: 80,
@@ -227,6 +227,7 @@ const styles = StyleSheet.create({
   },
   items: {
     marginTop: 30,
+    fontSize: 100,
   },
   writeTaskWrapper: {
     position: 'absolute',

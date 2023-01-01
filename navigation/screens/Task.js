@@ -30,8 +30,8 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap'
   },
   square: {
-    width: 24,
-    height: 24,
+    width: 30,
+    height: 30,
     backgroundColor: '#55BCF6',
     opacity: 0.4,
     borderRadius: 5,
@@ -41,8 +41,8 @@ const styles = StyleSheet.create({
     maxWidth: '80%',
   },
   circular: {
-    width: 12,
-    height: 12,
+    width: 20,
+    height: 20,
     borderColor: '#55BCF6',
     borderWidth: 2,
     borderRadius: 5,

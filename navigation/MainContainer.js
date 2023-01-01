@@ -8,13 +8,13 @@ import SectionList from 'react-native/Libraries/Lists/SectionList';
 import HomeScreen from './screens/HomeScreen';
 import TasksScreen from './screens/TasksScreen';
 import RewardsScreen from './screens/RewardsScreen';
-import MapScreen from './screens/MapScreen';
+// import MapScreen from './screens/MapScreen';
 
 //Screen names
 const homeName = "Home";
 const tasksName = "Tasks";
 const rewardsName = "Rewards";
-const mapName = "Map";
+// const mapName = "Map";
 
 const Tab = createBottomTabNavigator();
 
@@ -37,25 +37,22 @@ function MainContainer() {
             } else if (rn === rewardsName) {
               iconName = focused ? 'trophy' : 'trophy-outline';
             }
-
-            else if(rn === mapName){
-              iconName = focused ? 'ios-location' : 'ios-location-outline';
-            }
-            // You can return any component that you like here!
-            return <Ionicons name={iconName} size={size} color={color} />;
+          
+            return <Ionicons name={iconName} size={size} color={'white'} />;
           },
-        })}
-        tabBarOptions={{
-          activeTintColor: '#5D2AA8', 
-          inactiveTintColor: 'white',
-          labelStyle: { paddingBottom: 20, fontSize: 20 },
-          style: { padding: 20, height: 70}
-        }}>
+
+          // tabBarOptions:{
+            tabBarActiveTintColor: 'white', 
+            tabBarInactiveTintColor: 'grey',
+            tabBarLabelStyle: { paddingBottom: 20, fontSize: 20 },
+            tabBarStyle: {padding: 30, height: 70, backgroundColor: '#5D2AA8'},
+          // },
+        })}>
 
         <Tab.Screen name={homeName} component={HomeScreen} />
         <Tab.Screen name={tasksName} component={TasksScreen} />
         <Tab.Screen name={rewardsName} component={RewardsScreen} />
-        <Tab.Screen name={mapName} component={MapScreen} />
+        {/* <Tab.Screen name={mapName} component={MapScreen} /> */}
 
       </Tab.Navigator>
     </NavigationContainer>
