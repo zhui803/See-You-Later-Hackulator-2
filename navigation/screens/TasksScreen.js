@@ -23,7 +23,6 @@ import {
 
 
 export default function App() {
-  const [task, setTask] = useState();
   const [taskItems, setTaskItems] = useState([]);
 
 
@@ -35,7 +34,7 @@ export default function App() {
   const [rewards, setRewards] = useState([]);
   const [rewardsID, setRewardsID] = useState(0);
   const [rewardName, setRewardName] = useState("");
-  const [rewardValue, setRewardValue] = useState("");
+  const [rewardValue, setRewardValue] = useState(0);
 
   const handleButtonPress = () => {
     setShowInputs(!showInputs);
@@ -44,11 +43,13 @@ export default function App() {
 
   {/*New Event constructors */}
   const [taskName, setTaskName] = useState("");
-  const [taskID, setTaskID] = useState([]);
+  const [taskID, setTaskID] = useState(0);
+  const [tasks, setTasks] = useState([]);
 
 
-  const [categories, setCategories] = useState("");
-  const [catID, setCatID] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [categoriesID, setCategoriesID] = useState(0);
+  const [categoriesName, setCategoriesName] = useState("");
 
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState('date');
@@ -60,18 +61,12 @@ export default function App() {
 
   const [resultTime, setResultTime] = useState(new Date());
   const [resultDay, setResultDay] = useState(new Date());
+
+  const [count, setCount] = useState(0);
+  const [res, setRes] = useState();
+
   
-  const categoryData = [
-    {key: '1', value: 'Fitness'},
-    {key: '2', value: 'Health'},
-    {key: '3', value: 'Education'},
-    {key: '4', value: 'Nutrition'},
-    {key: '5', value: 'Housework'},
-    {key: '6', value: 'Social'},
-    {key: '7', value: 'Job'},
-    {key: '8', value: 'Free Time'}
-    //make it so that you can add new data soon
-  ]
+  
 
   //const [modalVisible, setModalVisible] = useState(false);
 
@@ -85,25 +80,31 @@ export default function App() {
   }, [money]);
 
   const handleSubmit = () => {
-    if (rewardValue != "" && rewardName != "") {
+    setModalVisible(!modalVisible)
+    if (taskName != "" && categoriesName != "") {
       const valid = money >= parseInt(rewardValue);
-      const reward = {
-        id: rewardsID,
+      const taskItem = {
+        id: taskID,
         description: rewardName,
         cost: rewardValue,
         valid: valid,
       };
       setRewardsID(parseInt(rewardsID) + 1);
-      setRewards([...rewards, reward]);
+      setTaskItems([...taskItems, taskItem]);
     }
-    setRewardValue("");
-    setRewardName("");
+    
+    setTaskName("");
+    setCategoriesName("");
+    <DateTimePicker minimumDate = {date}/>;
+
+    setRewardValue(0);
   };
 
 
 
   const handleAddTask = () => {
     Keyboard.dismiss();
+    setModalVisible(!modalVisible)
     setTaskItems([...taskItems, taskName])
     setTaskItems(null);
     
@@ -229,15 +230,20 @@ export default function App() {
           setModalVisible(!modalVisible);
         }}
       >
-        <View style={styles.centeredView}>
+        <ScrollView>
           <View style={styles.modalView}>
 
             <Text style={styles.modalTitle}>Enter a Task:</Text>
             <TextInput style={styles.input2} placeholder={'Enter Your Task'} value={taskName} onChangeText={text => setTaskName(text)} />
             
             <Text style={styles.modalTitle}>Choose a Category:</Text>
+            <TextInput style={styles.input2} placeholder={'Enter Task Category'} value={categoriesName} onChangeText={text => setCategoriesName(text)} />
 
-            <Text content = "How often should this task repeat and when?"></Text>
+            <Text style={styles.modalText}>When should this task happen?</Text>
+
+            <Text style={styles.modalTitle}>Set a Time</Text>
+
+            <Text style={styles.modalText}>When should this task happen?</Text>
             {/* The date picker */}  
             
             <View>
@@ -267,19 +273,39 @@ export default function App() {
                   display="default"
                   onChange={changeSelectedDate} />
          )}
+
+
+         
+         <Text style={styles.modalText}>When should this task happen?</Text>
+
+         <Text style={styles.modalTitle}>Choose Reward</Text>
+         <Text style={styles.modalText}>What should be amount given for achieving this task</Text>
+         <View>
+           <Button
+           backgroundColor = '#5D2AA8'
+             style = {styles.increment}
+             onPress={() => {setRewardValue(rewardValue + 1)}} title="+"
+           />
+           <Button
+           backgroundColor = '#5D2AA8'
+             style = {styles.decrement}
+             onPress={() => {setRewardValue(rewardValue - 1)}} title="-"
+           />
+           <Text position ='relative'  height = '500' align = 'center' color = '#E5DAF6' fontWeight = 'bold'> {rewardValue} </Text>
+       </View>
       
             
             <TouchableOpacity
               style={styles.addModalWrapper}
-              onPress={() => setModalVisible(!modalVisible)}
+              onPress={() => {handleSubmit()}}
             >
-              <Text style={styles.addModalText}> + Add New Task</Text>
+              <Text align = 'center' style={styles.addModalText}> + Add New Task</Text>
             </TouchableOpacity>
 
 
 
           </View>
-        </View>
+        </ScrollView>
       </Modal>
 
 
@@ -299,7 +325,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#grey',
+    backgroundColor: 'grey',
   },
   centeredView: {
     flex: 1,
@@ -339,7 +365,7 @@ const styles = StyleSheet.create({
   input2: {
     paddingVertical: 15,
     paddingHorizontal: 15,
-    backgroundColor: '#E5DAF6',
+    backgroundColor: '#E5E3E8',
     borderRadius: 60,
     borderColor: '#C0C0C0',
     borderWidth: 1,
@@ -417,7 +443,7 @@ button: {
 },
 modalView: {
   margin: 20,
-  backgroundColor: "5D2AA8",
+  backgroundColor: "#E5DAF6",
   padding: 50,
   alignItems: "center",
   shadowColor: "#000",
@@ -437,6 +463,23 @@ modalTitle: {
 },
 modalText: {
   marginBottom: 20,
-  textAlign: "center"
+  textAlign: "center",
+  fontSize: 15,
+  
+},
+increment: {
+  flex: 1,
+  backgroundColor: '#FFFFFF',
+  flexDirection: 'row'
+},
+decrement: {
+  flex: 0.5,
+  backgroundColor: '#FFFFFF',
+  flexDirection: 'row'
+},
+backButton: {
+  flex: 1.5,
+  backgroundColor: '#FFFFFF',
+  flexDirection: 'row-reverse'
 }
 });
