@@ -1,116 +1,24 @@
-import * as REACT from "react";
 import {
-    StyleSheet,
+    Alert, StyleSheet,
     Text,
     View,
-    Image,
     TextInput,
-    Button,
     TouchableOpacity,
+    Modal,
   } from "react-native";
-import DateTimePicker from '@react-native-community/datetimepicker';
-import {Dropdown} from 'react-native-material-dropdown';
+
+
+
+//import DateTimePicker from '@react-native-community/datetimepicker';
+import DropDownPicker from 'react-native-dropdown-picker';
 
 import Counter from './Counter';
-import DateTime from './DateTime';
-
-const AddTasks = () => {
-    const [eventDate, setEventDate] = useState("");
-    const [eventTitle, setEventTitle] = useState('Default event');
-    const [task, setTask] = useState("");
-    const [categoryOpen, setCatOpen] = useState(false);
-    const [value, setValue] = useState(null);
-    const [items, setItems] = useState([
-        {label: 'Health', value: 'health'},
-        {label: 'Fitness', value: 'fitness', parent: 'health'},
-        {label: 'Mental Health', value: 'mentalhealth', parent: 'health'},
-        {label: 'Work', value: 'work'},
-        {label: 'Housework', value: 'housework', parent: 'work'},
-        {label: 'Job', value: 'job', parent: 'work'},
-      ]); 
-      
-    {/* Make sure for the category to make it so user can type in it and also have it drop down to pre-made ones or make a new one if not there */}
-    return (
-    <View style={styles.container}>
-        <StatusBar style="auto" />
-        <H1 content="Add Tasks"></H1>
-        {/* This is the code block for the task adding input */}
-        
-        <H2 content = "Enter a task"> </H2>
-        <KeyboardAvoidingView 
-            behavior={Platform.OS === "ios" ? "padding" : "height"}
-            style = {styles.inputView}>
-            <TextInput
-                style={styles.Info_Input}
-                
-                placeholder="Enter Task"
-                placeholderTextColor="#014421"
-                onChangeText={(task) => setTask(task)}
-            />         
-        </KeyboardAvoidingView>
-        
-        <H2 content="Choose a category"></H2>
-        <DropDownPicker
-            searchTextInputProps={{
-              maxLength: 50
-            }}
-            addCustomItem={true}
-            searchPlaceholder="Search..."
-            open={open}
-            value={value}
-            items={items}
-            setOpen={setOpen}
-            setValue={setValue}
-            setItems={setItems}
-            categorySelectable={true}
-            searchable={true}          
-        />
-
-        
-        {/* Code for the date and time picker goes here, looking into the code behind it */}
-        <View style={styles.container}>
-        <H2 content = "Time and Frequency"></H2>
-        <H5 content = "How often should this task repeat and when?"></H5>
-          <View style={styles.inputView}>
-            <BodyText>Enter here</BodyText>
-            <TextInput
-              style={styles.Info_Input}
-              value={eventTitle}
-              onChangeText={text => setEventTitle(text)}
-            />
-            <BodyText>
-              {moment
-                .utc(TIME_NOW_IN_UTC)
-                .local()
-                .format('lll')}
-            </BodyText>
-          </View>
-          <TouchableOpacity style={styles.button}>
-            <BodyText color = '#FFFFFF' content = 'Add this event to calendar'/>
-          </TouchableOpacity>
-          {/*We want to also have the saved time and day onto the tasks screen*/}
-        </View>
-
-        <H2 content = "Choose Reward"></H2>
-        <BodyText content = "How many coins will you get?"></BodyText>
-        <Counter /> {/* We need to make a state variable or somehow have the counter value be displayed in tasks */}
-
-      {/* This is the code block for the Create Task button */}
-      <TouchableOpacity style={styles.createTaskButton}>
-        <Text style={styles.createTaskButtonText}>+ Create Task</Text> 
-      </TouchableOpacity> 
-
-
-      
-      
-    </View>
-    )
-}
+//import DateTime from './DateTime';
 
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#36454F',
+      backgroundColor: '#E5DAF6',
     },
     inputView: {
         backgroundColor: 'white',
@@ -134,7 +42,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         marginTop: 40,
-        backgroundColor: "#014421",
+        backgroundColor: "#5D2AA8",
       },
     createTaskButtonText: {
         fontFamily: 'Helvetica',
@@ -142,7 +50,7 @@ const styles = StyleSheet.create({
     },
     button: {
       alignItems: 'center',
-      backgroundColor: '#014421',
+      backgroundColor: '#5D2AA8',
       padding: 10,
       marginTop: 10,
       borderRadius: 10
@@ -150,12 +58,112 @@ const styles = StyleSheet.create({
 
   });
 
-  export default function App({ navigation }) {
+  const AddDetails = () => {
+    const [eventDate, setEventDate] = useState("");
+    const [eventTitle, setEventTitle] = useState('Default event');
+    const [task, setTask] = useState("");
+    const [categoryOpen, setCatOpen] = useState(false);
+    const [value, setValue] = useState(null);
+    const [items, setItems] = useState([
+        {label: 'Health', value: 'health'},
+        {label: 'Fitness', value: 'fitness', parent: 'health'},
+        {label: 'Mental Health', value: 'mentalhealth', parent: 'health'},
+        {label: 'Work', value: 'work'},
+        {label: 'Housework', value: 'housework', parent: 'work'},
+        {label: 'Job', value: 'job', parent: 'work'},
+      ]); 
+      
+    {/* Make sure for the category to make it so user can type in it and also have it drop down to pre-made ones or make a new one if not there */}
+    return (
+    <View style={styles.container}>
+        <StatusBar style="auto" />
+        <Text content="Add Tasks"></Text>
+        {/* This is the code block for the task adding input */}
+        
+        <Text> Enter a task </Text>
+        <KeyboardAvoidingView 
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
+            style = {styles.inputView}>
+            <TextInput
+                style={styles.Info_Input}
+                
+                placeholder="Enter Task"
+                placeholderTextColor="#014421"
+                onChangeText={(task) => setTask(task)}
+            />         
+        </KeyboardAvoidingView>
+        
+        <Text content="Choose a category"></Text>
+        <DropDownPicker
+            searchTextInputProps={{
+              maxLength: 50
+            }}
+            addCustomItem={true}
+            searchPlaceholder="Search..."
+            open={open}
+            value={value}
+            items={items}
+            setOpen={setOpen}
+            setValue={setValue}
+            setItems={setItems}
+            categorySelectable={true}
+            searchable={true}          
+        />
+
+        
+        {/* Code for the date and time picker goes here, looking into the code behind it */}
+        <View style={styles.container}>
+        <Text content = "Time and Frequency"></Text>
+        <Text content = "How often should this task repeat and when?"></Text>
+          <View style={styles.inputView}>
+            <Text>Enter here</Text>
+            <TextInput
+              style={styles.Info_Input}
+              value={eventTitle}
+              onChangeText={text => setEventTitle(text)}
+            />
+            <Text>
+              {moment
+                .utc(TIME_NOW_IN_UTC)
+                .local()
+                .format('lll')}
+            </Text>
+          </View>
+          <TouchableOpacity style={styles.button}>
+            <Text color = '#FFFFFF' content = 'Add this event to calendar'/>
+          </TouchableOpacity>
+          {/*We want to also have the saved time and day onto the tasks screen*/}
+        </View>
+
+        <Text content = "Choose Reward"></Text>
+        <Text content = "How many coins will you get?"></Text>
+        <Counter /> {/* We need to make a state variable or somehow have the counter value be displayed in tasks */}
+
+      {/* This is the code block for the Create Task button */}
+      <TouchableOpacity style={styles.createTaskButton}>
+        <Text 
+            style={styles.createTaskButtonText} 
+            onPress={() => this.props.navigation.goBack(<TaskScreen />)} 
+            title = "done">+ Create Task</Text> 
+      </TouchableOpacity> 
+
+
+      
+      
+    </View>
+    )
+}
+
+  
+
+  export default function AddTasks({ navigation }) {
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
             <Text
                 onPress={() => navigation.navigate('AddTask')}
                 style={{ fontSize: 26, fontWeight: 'bold' }}>Tasks Page</Text>
+
+           
         </View>
     );
 }
