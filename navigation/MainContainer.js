@@ -9,7 +9,7 @@ import HomeScreen from "./screens/HomeScreen";
 import TasksScreen from "./screens/TasksScreen";
 import RewardsScreen from "./screens/RewardsScreen";
 import MapScreen from "./screens/MapScreen";
-
+import HeaderMoney from "../components/HeaderMoney";
 //Screen names
 const homeName = "Home";
 const tasksName = "Tasks";
@@ -18,19 +18,12 @@ const mapName = "Map";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
+function tabs() {
+  return;
+}
 function MainContainer() {
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          headerStyle: {
-            backgroundColor: "#D9D9D9",
-          },
-          headerTitle: () => <HeaderMoney />,
-        }}
-      >
-        <Stack.Screen name="Home" component={RewardsScreen} />
-      </Stack.Navigator>
       <Tab.Navigator
         initialRouteName={homeName}
         screenOptions={({ route }) => ({
@@ -51,6 +44,7 @@ function MainContainer() {
             // You can return any component that you like here!
             return <Ionicons name={iconName} size={size} color={color} />;
           },
+          headerTitle: () => <HeaderMoney />,
         })}
         tabBarOptions={{
           activeTintColor: "tomato",
