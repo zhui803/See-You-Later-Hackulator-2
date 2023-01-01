@@ -325,7 +325,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#grey',
+    backgroundColor: 'grey',
   },
   centeredView: {
     flex: 1,
