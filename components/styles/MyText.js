@@ -2,25 +2,25 @@ import { StyleSheet, Text } from "react-native";
 
 //This file contains all the text types we use for easy implementation.
 export function H1(props) {
-  return <Text style={styles.h1}>{props.content}</Text>;
+  return <Text style={[styles.h1, props.style]}>{props.content}</Text>;
 }
 export function H2(props) {
-  return <Text style={styles.h2}>{props.content}</Text>;
+  return <Text style={[styles.h2, props.style]}>{props.content}</Text>;
 }
 export function H3(props) {
-  return <Text style={styles.h3}>{props.content}</Text>;
+  return <Text style={[styles.h3, props.style]}>{props.content}</Text>;
 }
 export function H4(props) {
-  return <Text style={styles.h4}>{props.content}</Text>;
+  return <Text style={[styles.h4, props.style]}>{props.content}</Text>;
 }
 export function H5(props) {
-  return <Text style={styles.h5}>{props.content}</Text>;
+  return <Text style={[styles.h5, props.style]}>{props.content}</Text>;
 }
 export function BodyText(props) {
-  return <Text style={styles.bodyText}>{props.content}</Text>;
+  return <Text style={[styles.bodyText, props.style]}>{props.content}</Text>;
 }
 export function SmallText(props) {
-  return <Text style={styles.smallText}>{props.content}</Text>;
+  return <Text style={[styles.smallText, props.style]}>{props.content}</Text>;
 }
 
 const styles = StyleSheet.create({
