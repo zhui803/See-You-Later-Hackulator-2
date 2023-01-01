@@ -12,7 +12,7 @@ import {
   Vibration,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
-import { Icon } from "@iconify/react";
+
 import {
   useMoney,
   addReward,
@@ -140,7 +140,6 @@ export default function RewardsScreen({ navigation }) {
                     }
                   >
                     <BodyText content={reward.cost} />
-                    <Icon icon="iconoir:coin" />
                   </View>
                 </Pressable>
               </View>
